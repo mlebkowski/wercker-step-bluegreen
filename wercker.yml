@@ -1,6 +1,7 @@
 box: wercker/default
 build:
     steps:
+        - validate-wercker-step
         - shellcheck:
             files: run.sh
 

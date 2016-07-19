@@ -1,5 +1,7 @@
 # Perform a blue/green deployment on Docker Cloud
 
+[![wercker status](https://app.wercker.com/status/81ea8784eef6ee7c604a49f7829b29ee/m/master "wercker status")](https://app.wercker.com/project/bykey/81ea8784eef6ee7c604a49f7829b29ee)
+
 ## Usage
 
 ```
