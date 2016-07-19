@@ -15,19 +15,19 @@ properties:
     type: string
     required: true
   load_balancer_name:
-	type: string
-	required: false
-	default: haproxy
+    type: string
+    required: false
+    default: haproxy
   backend_names:
-	type: string
-	required: false
+    type: string
+    required: false
   rollback:
-	type: string
-	required: false
+    type: string
+    required: false
   minimum_scale:
-	type: string
-	required: false
+    type: string
+    required: false
   action_timeout:
     type: string
     required: false
-	default: 45
+    default: 45
