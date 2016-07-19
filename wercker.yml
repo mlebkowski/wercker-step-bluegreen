@@ -9,6 +9,8 @@ build:
 
         - shellcheck:
             files: run.sh
+            exclude: SC2086,SC2155,SC2016
+            shell: bash
 
         - script:
             name: prepare output

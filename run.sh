@@ -19,9 +19,8 @@ case "$BLUEGREEN_ROLLBACK" in
 	false|no|0)	BLUEGREEN_ROLLBACK="";;
 esac
 
-export PATH=$WERCKER_ROOT_DIR/bin:$PATH
+export PATH=$WERCKER_STEP_ROOT/bin:$PATH
 
-EXIT_CODE_ERR=127
 EXIT_CODE_DEPENDENCY=126
 EXIT_CODE_TIMEOUT=5
 EXIT_CODE_RESPONSE=4
@@ -156,7 +155,7 @@ get_load_balancer() {
 }
 
 is_scalable() {
-	test "$BLUEGREEN_MINIMUM_SCALE" -gt 0 && test $(jq -rM .deployment_strategy) != "EVERY_NODE"
+	test "$BLUEGREEN_MINIMUM_SCALE" -gt 0 && test "$(jq -rM .deployment_strategy)" != "EVERY_NODE"
 }
 
 service_name() {
@@ -164,7 +163,7 @@ service_name() {
 }
 
 indent() {
-	while read line; do
+	while read -r line; do
 		if [[ "$line" == --* ]] || [[ "$line" == ==* ]]; then
 			echo $line
 		elif [[ "$line" == "!!!"* ]]; then
@@ -207,7 +206,7 @@ main() {
 	local next_backend_name=$(jq -rnM \
 		--arg CURRENT "$current_backend_name" \
 		--argjson INPUT "$available_backends" \
-		--argjson DIRECTION $(if [[ -n "$BLUEGREEN_ROLLBACK" ]]; then echo "-1"; else echo "+1"; fi) \
+		--argjson DIRECTION "$(if [[ -n "$BLUEGREEN_ROLLBACK" ]]; then echo "-1"; else echo "+1"; fi)" \
 		'if $INPUT|length > 0 then 
 			$INPUT[(if $INPUT|index($CURRENT) == null then 0 else $INPUT|index($CURRENT) + $DIRECTION * 1 end) % ($INPUT|length)] 
 		else "" end'
