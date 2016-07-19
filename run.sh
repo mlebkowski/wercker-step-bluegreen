@@ -47,7 +47,7 @@ dockercloud_request() {
 	
 	local data=$(
 		curl -s -D "$headers" \
-			-A 'BlueGreen deploy (https://github.com/mlebkowski/wercker-step-bluegreen)'
+			-A 'BlueGreen deploy (https://github.com/mlebkowski/wercker-step-bluegreen)' \
 			-u "$DOCKERCLOUD_USER:$DOCKERCLOUD_PASS" \
 			-X $method --data "$data" -H "Content-Type: application/json" \
 			"https://cloud.docker.com/$url"
@@ -184,6 +184,10 @@ main() {
 	printf -- '--> Searching for load balancer named %s\n' "$name" | indent
 	
 	local load_balancer=$(get_load_balancer "$name" <<<$services)
+	if [[ -z "$load_balancer" ]]; then
+		exit $EXIT_CODE_SERVICE_NOT_FOUND	
+	fi
+	
 	local current_backend_name=$(jq -rM '(.linked_to_service|first).name' <<<$load_balancer)
 	
 	if [[ -n "$current_backend_name" ]]; then
