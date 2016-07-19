@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#####################################################################
+########################################################################################
 export DOCKERCLOUD_USER=${WERCKER_BLUEGREEN_USER:-}
 export DOCKERCLOUD_PASS=${WERCKER_BLUEGREEN_PASS:-}
 export DOCKERCLOUD_LOAD_BALANCER_NAME=${WERCKER_BLUEGREEN_LOAD_BALANCER_NAME:-"haproxy"}
@@ -8,7 +8,7 @@ export DOCKERCLOUD_BACKEND_NAMES=${WERCKER_BLUEGREEN_BACKEND_NAMES:-}
 export BLUEGREEN_MINIMUM_SCALE=${WERCKER_BLUEGREEN_MINIMUM_SCALE:-1}
 export BLUEGREEN_ROLLBACK=${WERCKER_BLUEGREEN_ROLLBACK:-}
 export BLUEGREEN_ACTION_TIMEOUT=${WERCKER_BLUEGREEN_ACTION_TIMEOUT:-45}
-#####################################################################
+########################################################################################
 
 if [[ -z "$DOCKERCLOUD_USER" ]] || [[ -z "$DOCKERCLOUD_PASS" ]]; then
 	fail "Please declare DOCKERCLOUD_USER and DOCKERCLOUD_PASS env variables or user/pass step parameters"
@@ -19,6 +19,7 @@ case "$BLUEGREEN_ROLLBACK" in
 	false|no|0)	BLUEGREEN_ROLLBACK="";;
 esac
 
+export PATH=$WERCKER_ROOT_DIR/bin:$PATH
 
 EXIT_CODE_ERR=127
 EXIT_CODE_DEPENDENCY=126

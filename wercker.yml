@@ -3,8 +3,9 @@ build:
     steps:
         - validate-wercker-step
 
-        - install-packages:
-            packages: jq
+        - script:
+            name: install jq
+            code: mkdir -p ./bin && wget -O ./bin/jq https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 && chmod a+x ./bin/jq
 
         - shellcheck:
             files: run.sh
