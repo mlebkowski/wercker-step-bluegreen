@@ -2,6 +2,10 @@ box: wercker/default
 build:
     steps:
         - validate-wercker-step
+
+        - install-packages:
+            packages: jq
+
         - shellcheck:
             files: run.sh
 

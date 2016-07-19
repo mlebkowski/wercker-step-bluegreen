@@ -1,0 +1,33 @@
+name: bluegreen
+version: 1.0.0
+description: Make a blue/green type of deployment using docker cloud
+keywords:
+  - deployment
+  - docker
+  - docker cloud
+  - bluegreen
+  - no downtime
+properties:
+  user:
+    type: string
+    required: true
+  pass:
+    type: string
+    required: true
+  load_balancer_name:
+	type: string
+	required: false
+	default: haproxy
+  backend_names:
+	type: string
+	required: false
+  rollback:
+	type: string
+	required: false
+  minimum_scale:
+	type: string
+	required: false
+  action_timeout:
+    type: string
+    required: false
+	default: 45
